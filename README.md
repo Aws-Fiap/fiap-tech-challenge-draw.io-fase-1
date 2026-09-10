@@ -28,6 +28,14 @@ Os arquivos `.drawio` podem ser abertos de três formas:
 2. **Desktop**: instale o [draw.io Desktop](https://github.com/jgraph/drawio-desktop/releases) e abra o arquivo diretamente.
 3. **VS Code**: instale a extensão [Draw.io Integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) e abra o `.drawio` no editor.
 
+## GitHub Actions
+
+O workflow [`export-diagrams.yml`](.github/workflows/export-diagrams.yml) exporta automaticamente todos os `.drawio` para PNG:
+
+- Em **push** na `master` que altere algum `.drawio`: as imagens são geradas na pasta `exports/` e commitadas de volta no repositório.
+- Em **pull requests** que alterem algum `.drawio`: as imagens são geradas e disponibilizadas como artifact do workflow (sem commit), para facilitar a revisão visual do diagrama no PR.
+- Também pode ser disparado manualmente pela aba *Actions* (`workflow_dispatch`).
+
 ## Autores
 
 Projeto desenvolvido para o Tech Challenge da Pós-Tech FIAP.
