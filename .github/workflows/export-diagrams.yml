@@ -28,6 +28,7 @@ jobs:
           format: png
           transparent: true
           output: exports
+          action-mode: all-pages
 
       - name: Commit exported images
         if: github.event_name != 'pull_request'
