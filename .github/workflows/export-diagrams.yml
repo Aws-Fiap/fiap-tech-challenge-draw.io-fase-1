@@ -1,0 +1,44 @@
+name: Export draw.io diagrams
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "**/*.drawio"
+  pull_request:
+    paths:
+      - "**/*.drawio"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Export .drawio files to PNG
+        uses: rlespinasse/drawio-export-action@v2
+        with:
+          path: .
+          format: png
+          transparent: true
+          output: exports
+
+      - name: Commit exported images
+        if: github.event_name != 'pull_request'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: atualiza imagens exportadas dos diagramas [skip ci]"
+          file_pattern: "exports/**"
+
+      - name: Upload exported images as artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagram-exports
+          path: exports/
