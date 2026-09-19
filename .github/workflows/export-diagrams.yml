@@ -3,12 +3,12 @@ name: Export draw.io diagrams
 on:
   push:
     branches:
-      - master
+      - main
     paths:
-      - "**/*.drawio"
+      - '**/*.drawio'
   pull_request:
     paths:
-      - "**/*.drawio"
+      - '**/*.drawio'
   workflow_dispatch: {}
 
 permissions:
@@ -34,8 +34,8 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: atualiza imagens exportadas dos diagramas [skip ci]"
-          file_pattern: "exports/**"
+          commit_message: 'chore: atualiza imagens exportadas dos diagramas [skip ci]'
+          file_pattern: 'exports/**'
 
       - name: Upload exported images as artifact
         if: github.event_name == 'pull_request'
